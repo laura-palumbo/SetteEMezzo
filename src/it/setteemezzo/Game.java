@@ -37,17 +37,18 @@ public class Game {
 		return sumComputer;
 	}
 	
-	public static boolean checkSumPlayer(double sumPlayer){
+	public static boolean checkSumPlayer(double sumCardsVisiblePlayer, Carta[] mazzo, double sumPlayer){
 		boolean baluffo = false;
 		if(sumPlayer>=8){
 			baluffo = true;
 			System.out.println("\nHAI TOTALIZZATO " + sumPlayer + ", QUINDI HAI FATTO BALUFFO !!!");
-			System.out.println("\n**************************");
-			System.out.println("****** YOU LOSE :-(( *****");
-			System.out.println("**************************");
+			System.out.println("\n*******************************");
+			System.out.println("****** YOU HAVE LOST :-(( *****");
+			System.out.println("*******************************");
 		}else if (sumPlayer==7.5) {
 			System.out.println("HAI TOTALIZZATO : " + sumPlayer + "PASSI IL GIOCO AL COMPUTER");
-		// CHIAMATA computePlayer()
+			Game.computerPlayer(sumCardsVisiblePlayer, mazzo);
+			// CHIAMATA computePlayer()
 		}else {
 			System.out.println("SOMMA PLAYER: " + sumPlayer);
 		}		
@@ -59,33 +60,61 @@ public class Game {
 		//	System.out.println("player[0].getValue(): " +player[0].getValue() );
 		//	sumCardsVisiblePlayer = sumPlayer - player[1].getValue(); 
 		
-		double sumC;
+		double sumC = 0;
 		
 		if (sumPlayer==7.5){
 			while(sumComputer < 7.5){
-				sumC = Game.setCardAndReturnSumComputer(mazzo); //QUI ESPLODE
-//				System.out.println("Ultima carta estratta dal computer: " + computer[j].getCardName());
-//				System.out.println("Totale computer: " + sumComputer);
+				sumC = Game.setCardAndReturnSumComputer(mazzo); 
 				System.out.println("Totale computer: " + sumC);
 			}
-		} else if (sumCardsVisiblePlayer>=4) {
+		} /*else {
+			while((sumCardsVisiblePlayer==0) && (sumC<5)){
+				sumC = Game.setCardAndReturnSumComputer(mazzo); 
+				System.out.println("Totale computer: " + sumC);
+			}
+		}*/
+		
+		
+		else if ((sumCardsVisiblePlayer==sumComputer) && (5 <= sumComputer) && (sumComputer < 7)) {
 			System.out.println("sumComputer: " + sumComputer);
-			while(sumComputer < 5){
 				sumC = Game.setCardAndReturnSumComputer(mazzo);
-//				System.out.println("Ultima carta estratta dal computer: " + computer[j].getCardName());
-//				System.out.println("Totale computer: " + sumComputer);
+				System.out.println("Totale computer: " + sumC);
+				
+		}else if ((sumCardsVisiblePlayer<=4.5) && (5 <= sumComputer)) {
+			System.out.println("sumComputer: " + sumComputer);
+			sumC = Game.setCardAndReturnSumComputer(mazzo);
+			System.out.println("Totale computer: " + sumC);
+		}else if ((sumCardsVisiblePlayer>=4) && (sumCardsVisiblePlayer<6.5)) {
+			System.out.println("sumComputer: " + sumComputer);
+			while(sumComputer <= 6.5){
+				sumC = Game.setCardAndReturnSumComputer(mazzo);
 				System.out.println("Totale computer: " + sumC);
 			}
 		} else if (sumCardsVisiblePlayer==6.5) {
 			while(sumComputer <=7){
 				sumC = Game.setCardAndReturnSumComputer(mazzo);
-//				System.out.println("Ultima carta estratta dal computer: " + computer[j].getCardName());
-//				System.out.println("Totale computer: " + sumComputer);
+				System.out.println("Totale computer: " + sumC);
+			}
+		}else if ((sumCardsVisiblePlayer==0) && (sumComputer<5)) {
+			while(sumComputer <=7){
+				sumC = Game.setCardAndReturnSumComputer(mazzo);
 				System.out.println("Totale computer: " + sumC);
 			}
 		}
 		return sumComputer;
 	}
-
+	
+	
+	public static void checkFinal(double sumComputer, double sumPlayer){
+		if ((sumComputer<sumPlayer) || (sumComputer>7.5)){
+			System.out.println("**********************************");
+			System.out.println("****** YOU HAVE WON !!! :-D ******");
+			System.out.println("**********************************");		
+		} else {
+			System.out.println("*******************************");
+			System.out.println("****** YOU HAVE LOST :-(( *****");
+			System.out.println("*******************************");
+		}
+	}
 	
 }

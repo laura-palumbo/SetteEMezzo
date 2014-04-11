@@ -22,7 +22,7 @@ public class Start {
 		String _String;
 		char _char = ' ';
 		
-		System.out.println("Per iniziare la partita premi un tasto...");
+		System.out.println("Per iniziare la partita premi INVIO...");
 		try {
 			System.in.read();
 		} catch (IOException e) {
@@ -36,7 +36,7 @@ public class Start {
 		boolean passa = false;
 		boolean baluffo = false;
 		while(((_char!='c') || (_char!='p')) && (passa==false) && (baluffo==false)){
-			System.out.println("Per pescare una carta premi C, per passare P");
+			System.out.println("Per pescare una carta premi C e dopo INVIO, per passare P e dopo INVIO");
 
 			br = new BufferedReader(new InputStreamReader(System.in));
 			try
@@ -60,7 +60,7 @@ public class Start {
 			switch (_char){
 			case 'c': 
 				sumP = Game.setCardAndReturnSumPlayer(mazzo);
-				baluffo = Game.checkSumPlayer(sumP);
+				baluffo = Game.checkSumPlayer(sumP-sumP1, mazzo, sumP);
 				break;
 				
 			case 'p':
@@ -69,36 +69,15 @@ public class Start {
 				System.out.println("somma player: " +sumP);
 				System.out.println("carte scoperte player: " + (sumP - sumP1));
 
- 				sumC = Game.computerPlayer(sumP-sumP1, mazzo); // QUI ESPLODE !!!!
+ 				sumC = Game.computerPlayer(sumP-sumP1, mazzo); 
+ 				Game.checkFinal(sumC, sumP);
 				break;
 				
 			default: _char = 'p';
             	break;
 			}
 		}
-
-				
-//			try {
-//				System.in.read();
-//				System.out.println(c.getCardName() + "questa è la prima carta estratta");
-//	
-//			} catch (IOException e1) {
-//				// TODO Auto-generated catch block
-//				e1.printStackTrace();
-//			}
-//
-//			for(int i=0; i<mazzo.length; i++){	
-//				if (mazzo[i] == null) {
-//					System.out.println("non è presente");
-//				} else {
-//					System.out.println(mazzo[i].getCardName());
-//				}
-//			}
-//			c=Mazzo.getRandomCard(mazzo);
 		
 	}
 	
-	
-	
-
 }

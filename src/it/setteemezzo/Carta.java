@@ -12,20 +12,20 @@ public class Carta {
 
 	public String getSuitName() {
 		String name = "";
-		
-		switch (this.suit){
-			case 's': 
-				name="spade";
-				break;
-			case 'd': 
-				name="denari";
-				break;
-			case 'b': 
-				name="bastoni";
-				break;
-			case 'c': 
-				name="coppe";
-				break;
+
+		switch (this.suit) {
+		case 's':
+			name = "spade";
+			break;
+		case 'd':
+			name = "denari";
+			break;
+		case 'b':
+			name = "bastoni";
+			break;
+		case 'c':
+			name = "coppe";
+			break;
 		}
 		return name;
 	}
@@ -33,25 +33,42 @@ public class Carta {
 	public double getSuit() {
 		return suit;
 	}
-	
+
 	public int getNumber() {
 		return number;
 	}
 
 	public double getValue() {
 		double value = number;
-		
-		if(number >= 8) {
-			value = 0.5d; 
+
+		if (number >= 8) {
+			value = 0.5d;
 		}
-		
+
 		return value;
 	}
-	
-	public String getCardName() {
-		return getNumber() + " di " + getSuitName();
-	}
 
-	
+	public String getCardName() {
+		int numCarta = getNumber();
+		String carta = "";
+		switch (numCarta) {
+		case 1:
+			carta = "Asso";
+			break;
+		case 8:
+			carta = "Fante";
+			break;
+		case 9:
+			carta = "Cavaliere";
+			break;
+		case 10:
+			carta = "Re";
+			break;
+		default:
+			carta = Integer.toString(numCarta);
+			break;
+		}
+		return carta + " di " + getSuitName();
+	}
 
 }
