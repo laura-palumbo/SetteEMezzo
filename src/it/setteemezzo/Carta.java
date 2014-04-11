@@ -30,7 +30,7 @@ public class Carta {
 		return name;
 	}
 
-	public double getSuit() {
+	public char getSuit() {
 		return suit;
 	}
 

@@ -14,8 +14,6 @@ public class Game {
 	public static double setCardAndReturnSumPlayer(Carta mazzo[]){
 		int k = 0;
 		Carta c;
-//		Carta[] giocatore = new Carta[15];
-
 		c=Mazzo.getRandomCard(mazzo);  //take a card from the deck
 		player[k]=c;
 		sumPlayer = sumPlayer + player[k].getValue();
@@ -27,7 +25,6 @@ public class Game {
 	
 	public static double setCardAndReturnSumComputer(Carta mazzo[]){
 		Carta c;
-//		Carta[] computer = new Carta[15];
 		c=Mazzo.getRandomCard(mazzo);  //take a card from the deck
 		computer[j]=c;
 		sumComputer = sumComputer + computer[j].getValue();
@@ -48,6 +45,7 @@ public class Game {
 		}else if (sumPlayer==7.5) {
 			System.out.println("HAI TOTALIZZATO : " + sumPlayer + "PASSI IL GIOCO AL COMPUTER");
 			Game.computerPlayer(sumCardsVisiblePlayer, mazzo);
+			baluffo = true;
 			// CHIAMATA computePlayer()
 		}else {
 			System.out.println("SOMMA PLAYER: " + sumPlayer);
@@ -57,9 +55,9 @@ public class Game {
 	
 	
 	public static double computerPlayer(double sumCardsVisiblePlayer, Carta[] mazzo){
-		//	System.out.println("player[0].getValue(): " +player[0].getValue() );
-		//	sumCardsVisiblePlayer = sumPlayer - player[1].getValue(); 
-		
+			sumCardsVisiblePlayer = sumPlayer - player[0].getValue(); 
+			System.out.println("player[0].getValue(): " +player[0].getValue() );
+
 		double sumC = 0;
 		
 		if (sumPlayer==7.5){
@@ -96,7 +94,7 @@ public class Game {
 				System.out.println("Totale computer: " + sumC);
 			}
 		}else if ((sumCardsVisiblePlayer==0) && (sumComputer<5)) {
-			while(sumComputer <=7){
+			while(sumComputer>=5){
 				sumC = Game.setCardAndReturnSumComputer(mazzo);
 				System.out.println("Totale computer: " + sumC);
 			}
