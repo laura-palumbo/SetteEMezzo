@@ -56,10 +56,10 @@ public class Carta {
 			carta = "Asso";
 			break;
 		case 8:
-			carta = "Fante";
+			carta = "Donna";
 			break;
 		case 9:
-			carta = "Cavaliere";
+			carta = "Cavallo";
 			break;
 		case 10:
 			carta = "Re";

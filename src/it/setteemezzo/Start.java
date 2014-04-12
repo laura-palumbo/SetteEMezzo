@@ -5,9 +5,11 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Start {
-	
+
+
+	@SuppressWarnings("unused")
 	public static void main(String[] args) {
-		
+
 		Carta[] mazzo;
 		mazzo = Mazzo.popolaMazzo();			
 		double sumP;
@@ -15,24 +17,75 @@ public class Start {
 		BufferedReader br;
 		String _String = " ";
 		char _char = ' ';
-		
-		do{
-//		System.out.println("Per iniziare la partita premi INVIO...");
-//		try {
-//			System.in.read();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 
-		sumP = Game.setCardAndReturnSumPlayer(mazzo); // the first card from deck is for player
-		sumC = Game.setCardAndReturnSumComputer(mazzo); // the second card from deck is for computer
-		double sumP1 = sumP; //prima carta del player
-		boolean passa = false;
-		boolean baluffo = false;
-		
-		while(((_char!='c') || (_char!='p')) && (passa==false) && (baluffo==false)){
-			System.out.println("Per pescare una carta premi C e dopo INVIO, per passare P e dopo INVIO");
+		do{
+			//		System.out.println("Per iniziare la partita premi INVIO...");
+			//		try {
+			//			System.in.read();
+			//		} catch (IOException e) {
+			//			// TODO Auto-generated catch block
+			//			e.printStackTrace();
+			//		}
+
+			sumP = Game.setCardAndReturnSumPlayer(mazzo); // the first card from deck is for player
+			sumC = Game.setCardAndReturnSumComputer(mazzo); // the second card from deck is for computer
+			double sumP1 = sumP; //prima carta del player
+			boolean passa = false;
+			boolean sballato = false;
+
+			while(((_char!='c') || (_char!='p')) && (passa==false) && (sballato==false)){
+				System.out.println("Premi C seguito da INVIO per prendere una carta");
+				System.out.println("Premi P seguito da INVIO per passare il turno");
+				br = new BufferedReader(new InputStreamReader(System.in));
+				try
+				{
+					_String = br.readLine();
+					if (_String.length() > 1)
+						throw new NumberFormatException();
+
+					try {
+						_char = _String.charAt(0);
+
+					} catch (Exception e) {
+						_char = 'd';				
+					}
+				}
+				catch (IOException e1)
+				{
+					System.out.println ("errore di flusso");
+					_char = 'd';
+				}
+				catch (NumberFormatException e2)
+				{
+					System.out.println ("errore di input da tastiera");
+					_char = 'd';
+				}
+
+				switch (_char){
+				case 'c': 
+					sumP = Game.setCardAndReturnSumPlayer(mazzo);
+					sballato = Game.checkSumPlayer(sumP-sumP1, mazzo);
+					break;
+
+				case 'p':
+					passa = true;
+
+					System.out.println("* **** **** **** **** **** **** **** **** **** *");
+					System.out.println("Hai passato il turno al computer con: " +sumP);
+					System.out.println("* **** **** **** **** **** **** **** **** **** *");
+					//System.out.println("carte scoperte player: " + (sumP - sumP1));
+					sumC = Game.computerPlayer(sumP-sumP1, mazzo); 
+					Game.checkFinal();
+					break;
+
+				default: _char = 'p';
+				break;
+				}
+			}
+			System.out.println(" * * * * * * * * * * * * * * * * * * * * * * * * ");
+			System.out.println(" * * * * Vuoi giocare un'altra partita? s/n  * * ");
+			System.out.println(" * * * * * * * * * * * * * * * * * * * * * * * * ");
+			
 
 			br = new BufferedReader(new InputStreamReader(System.in));
 			try
@@ -40,13 +93,13 @@ public class Start {
 				_String = br.readLine();
 				if (_String.length() > 1)
 					throw new NumberFormatException();
-				
+
 				try {
 					_char = _String.charAt(0);
-					
+
 				} catch (Exception e) {
 					_char = 'd';				
-					}
+				}
 			}
 			catch (IOException e1)
 			{
@@ -58,55 +111,9 @@ public class Start {
 				System.out.println ("errore di input da tastiera");
 				_char = 'd';
 			}
+				Game.azzera();
+		}while(_char =='s');
 
-			switch (_char){
-			case 'c': 
-				sumP = Game.setCardAndReturnSumPlayer(mazzo);
-				baluffo = Game.checkSumPlayer(sumP-sumP1, mazzo, sumP);
-				break;
-				
-			case 'p':
-				passa = true;
-				System.out.println("somma computer: " +sumC);
-				System.out.println("somma player: " +sumP);
-				System.out.println("carte scoperte player: " + (sumP - sumP1));
- 				sumC = Game.computerPlayer(sumP-sumP1, mazzo); 
- 				Game.checkFinal(sumC, sumP);
-				break;
-				
-			default: _char = 'p';
-            	break;
-			}
-		}
-		
-		System.out.println("Vuoi giocare un'altra partita? s/n" );
-		
-		br = new BufferedReader(new InputStreamReader(System.in));
-		try
-		{
-			_String = br.readLine();
-			if (_String.length() > 1)
-				throw new NumberFormatException();
-			
-			try {
-				_char = _String.charAt(0);
-				
-			} catch (Exception e) {
-				_char = 'd';				
-				}
-		}
-		catch (IOException e1)
-		{
-			System.out.println ("errore di flusso");
-			_char = 'd';
-		}
-		catch (NumberFormatException e2)
-		{
-			System.out.println ("errore di input da tastiera");
-			_char = 'd';
-		}
-				
-	}while(_char =='s');
-	
-}
+
+	}
 }
