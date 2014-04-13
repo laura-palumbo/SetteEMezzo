@@ -19,14 +19,6 @@ public class Start {
 		char _char = ' ';
 
 		do{
-			//		System.out.println("Per iniziare la partita premi INVIO...");
-			//		try {
-			//			System.in.read();
-			//		} catch (IOException e) {
-			//			// TODO Auto-generated catch block
-			//			e.printStackTrace();
-			//		}
-
 			sumP = Game.setCardAndReturnSumPlayer(mazzo); // the first card from deck is for player
 			sumC = Game.setCardAndReturnSumComputer(mazzo); // the second card from deck is for computer
 			double sumP1 = sumP; //prima carta del player
@@ -83,8 +75,10 @@ public class Start {
 				}
 			}
 			System.out.println(" * * * * * * * * * * * * * * * * * * * * * * * * ");
-			System.out.println(" * * * * Vuoi giocare un'altra partita? s/n  * * ");
+			System.out.println(" * * * * Vuoi giocare un'altra partita? c/p  * * ");
 			System.out.println(" * * * * * * * * * * * * * * * * * * * * * * * * ");
+			System.out.println("Premi C seguito da INVIO per prendere continuare ");
+			System.out.println("Premi P seguito da INVIO per terminare la partita");
 			
 
 			br = new BufferedReader(new InputStreamReader(System.in));
@@ -112,8 +106,11 @@ public class Start {
 				_char = 'd';
 			}
 				Game.azzera();
-		}while(_char =='s');
-
-
+		}while(_char =='c');restart(args);
+	}
+	
+	private static void restart(String[] strArr)
+	{
+	    main(strArr);
 	}
 }

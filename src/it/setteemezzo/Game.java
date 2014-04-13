@@ -10,7 +10,7 @@ public class Game {
 	static int k = 0; //indice player[k];
 
 
-	
+
 	public static double setCardAndReturnSumPlayer(Carta mazzo[]){
 		int k=0;
 		Carta c;
@@ -21,11 +21,11 @@ public class Game {
 		System.out.println("                CARTA GIOCATORE                 ");
 		System.out.println("* **** **** **** **** **** **** **** **** **** *");
 		System.out.println(player[k].getCardName());// show the card to the user player
-		//System.out.println("* **** **** **** **** **** **** **** **** **** *");
+		System.out.println("* **** **** **** **** **** **** **** **** **** *");
 		k++;
 		return sumPlayer;
 	}
-	
+
 	public static double setCardAndReturnSumComputer(Carta mazzo[]){
 		Carta c;
 		c=Mazzo.getRandomCard(mazzo);  //take a card from the deck
@@ -35,26 +35,22 @@ public class Game {
 		System.out.println("                CARTA COMPUTER                 ");
 		System.out.println("* **** **** **** **** **** **** **** **** **** *");
 		if (j==0){
-		System.out.println("* **** **** **** **** **** **** **** **** **** *");
-		System.out.println("Carta Coperta PC"+" "+computer[j].getCardName()); 
-		System.out.println("* **** **** **** **** **** **** **** **** **** *");// show the card to the user computer
-		j++;
-		}else {
-			/*switch (j){
-			case 1 : 
-				System.out.println(computer[0].getCardName());
-				System.out.println(computer[j].getCardName());
-				break;
-			case 2 :
-				System.out.println(computer[j].getCardName());
-				break;
-		}*/System.out.println(computer[j].getCardName());
-			
-			
-		}
+			System.out.println("* **** **** **** **** **** **** **** **** **** *");
+			System.out.println("Carta Coperta PC"); 
+			System.out.println("* **** **** **** **** **** **** **** **** **** *");// show the card to the user computer
+			j++;
+		}else if (j==1){
+			System.out.println("Carta coperta PC:"+computer[0].getCardName()+" "+"+"+"\n"+computer[1].getCardName());
+			System.out.println("* **** **** **** **** **** **** **** **** **** *");
+			System.out.println("PUNTI giocatore:"+" "+sumPlayer);
+		}else if (j==2){
+			System.out.println("Carta coperta PC:"+computer[0].getCardName()+" "+"+"+"\n"+computer[1].getCardName()+" "+"+"+"\n"+computer[2].getCardName());
+			System.out.println("* **** **** **** **** **** **** **** **** **** *");
+			System.out.println("PUNTI giocatore:"+" "+sumPlayer);
+			}
 		return sumComputer;
 	}
-	
+
 	public static boolean checkSumPlayer(double sumCardsVisiblePlayer, Carta[] mazzo){
 		boolean baluffo = false;
 		if(sumPlayer>=8){
@@ -68,42 +64,54 @@ public class Game {
 			System.out.println("PASSI IL GIOCO AL COMPUTER");
 			Game.computerPlayer(sumCardsVisiblePlayer, mazzo);
 			baluffo = true;
-			// CHIAMATA computePlayer()
 		}else {
+			System.out.println("* **** **** **** **** **** **** **** **** **** *");
 			System.out.println("PUNTI Giocatore: " + sumPlayer);
 			System.out.println("* **** **** **** **** **** **** **** **** **** *");
 		}		
 		return baluffo;
 	}
-	
-	
-	public static double computerPlayer(double sumCardsVisiblePlayer, Carta[] mazzo){
-		//	sumCardsVisiblePlayer = sumPlayer - player[0].getValue(); 
-		//	System.out.println("Punti del giocatore: " +player[0].getValue() );
 
+
+	public static double computerPlayer(double sumCardsVisiblePlayer, Carta[] mazzo){
+
+		@SuppressWarnings("unused")
 		double sumC=0;
-		
-		
+
 		if (sumPlayer==7.5){//PROVARE PER CREDERE
-			while(sumComputer==7.5){
+			do {
 				sumC = Game.setCardAndReturnSumComputer(mazzo); 
 				System.out.println("PUNTI computer: " + sumComputer);
-			}
-		} else if (((sumC==7)||(sumComputer==6))&&(sumCardsVisiblePlayer==0)){
+			}while (sumComputer<=7.5);checkFinal();
+		}else if(sumComputer==7){
 			sumC = Game.setCardAndReturnSumComputer(mazzo);
 			System.out.println("PUNTI computer: " + sumComputer);
-		} else if ((sumComputer==7)||(sumComputer==6)){
+			checkFinal();
+		}else if(sumComputer==6.5){
 			sumC = Game.setCardAndReturnSumComputer(mazzo);
 			System.out.println("PUNTI computer: " + sumComputer);
-		}else{
-		do{
+		}else if(sumComputer==6){
 			sumC = Game.setCardAndReturnSumComputer(mazzo);
 			System.out.println("PUNTI computer: " + sumComputer);
-		} while ((sumComputer<7)||(sumComputer==7));
-		}
-		return sumComputer;//PROVARE PRE CREDERE
+			checkFinal();
+		}else if((sumComputer==5.5)&&(sumPlayer==0)){
+			sumC = Game.setCardAndReturnSumComputer(mazzo);
+			System.out.println("PUNTI computer: " + sumComputer);
+			checkFinal();
+		}else if (sumComputer==5){
+			sumC = Game.setCardAndReturnSumComputer(mazzo);
+			System.out.println("PUNTI computer: " + sumComputer);
+			checkFinal();
+		}else if(sumComputer<5){
+			do {
+				sumC = Game.setCardAndReturnSumComputer(mazzo);
+				System.out.println("PUNTI computer: " + sumComputer);
+			} while (sumComputer<=5);checkFinal();
+
+			//ROVARE PRE CREDERE
+		}return sumComputer;
 	}
-	
+
 	public static void checkFinal(){
 		if ((sumComputer<sumPlayer) || (sumComputer>7.5)){
 			System.out.println("* **** **** **** **** **** **** **** **** **** *");
@@ -115,8 +123,9 @@ public class Game {
 			System.out.println("* **** **** **** **** **** **** **** **** **** *");
 		}
 	}
-	
+
 	public static void azzera(){
 		sumPlayer=0;
+		sumComputer=0;
 	}
 }
