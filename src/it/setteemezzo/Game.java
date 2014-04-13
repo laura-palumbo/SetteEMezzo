@@ -36,18 +36,16 @@ public class Game {
 		System.out.println("* **** **** **** **** **** **** **** **** **** *");
 		if (j==0){
 			System.out.println("* **** **** **** **** **** **** **** **** **** *");
-			System.out.println("Carta Coperta PC"); 
-			System.out.println("* **** **** **** **** **** **** **** **** **** *");// show the card to the user computer
+			System.out.println("Carta Coperta PC:"+" "+computer[j].getCardName());
+			System.out.println("* **** **** **** **** **** **** **** **** **** *");
 			j++;
 		}else if (j==1){
-			System.out.println("Carta coperta PC:"+computer[0].getCardName()+" "+"+"+"\n"+computer[1].getCardName());
 			System.out.println("* **** **** **** **** **** **** **** **** **** *");
-			System.out.println("PUNTI giocatore:"+" "+sumPlayer);
-		}else if (j==2){
-			System.out.println("Carta coperta PC:"+computer[0].getCardName()+" "+"+"+"\n"+computer[1].getCardName()+" "+"+"+"\n"+computer[2].getCardName());
+			System.out.println(computer[j].getCardName()); 
 			System.out.println("* **** **** **** **** **** **** **** **** **** *");
-			System.out.println("PUNTI giocatore:"+" "+sumPlayer);
-			}
+			System.out.println("PUNTI giocatore:"+" "+sumPlayer);// show the card to the user computer
+			
+		}
 		return sumComputer;
 	}
 
@@ -59,6 +57,7 @@ public class Game {
 			System.out.println("\n * ** **** **** **** **** **** **** **** **** *");
 			System.out.println("* **** **** **** YOU HAVE LOST :-(( **** **** *");
 			System.out.println("* **** **** **** **** **** **** **** **** **** *");
+			j++;
 		}else if (sumPlayer==7.5) {
 			System.out.println("HAI TOTALIZZATO : " + sumPlayer );
 			System.out.println("PASSI IL GIOCO AL COMPUTER");
@@ -82,31 +81,41 @@ public class Game {
 			do {
 				sumC = Game.setCardAndReturnSumComputer(mazzo); 
 				System.out.println("PUNTI computer: " + sumComputer);
-			}while (sumComputer<=7.5);checkFinal();
+			}while (sumComputer<=7.5);checkFinal();System.out.println("PUNTI giocatore: " + sumPlayer);
+		}else if (sumCardsVisiblePlayer>5){
+			do {
+				sumC = Game.setCardAndReturnSumComputer(mazzo); 
+				System.out.println("PUNTI computer: " + sumComputer);
+			}while (sumComputer<=6);checkFinal();			
 		}else if(sumComputer==7){
-			sumC = Game.setCardAndReturnSumComputer(mazzo);
 			System.out.println("PUNTI computer: " + sumComputer);
+			System.out.println("PUNTI giocatore: " + sumPlayer);
 			checkFinal();
 		}else if(sumComputer==6.5){
-			sumC = Game.setCardAndReturnSumComputer(mazzo);
 			System.out.println("PUNTI computer: " + sumComputer);
+			System.out.println("PUNTI giocatore: " + sumPlayer);
+			checkFinal();
 		}else if(sumComputer==6){
+			System.out.println("PUNTI computer: " + sumComputer);
+			System.out.println("PUNTI giocatore: " + sumPlayer);
+			checkFinal();
+		}else if((sumComputer==5.5)&&(sumCardsVisiblePlayer==0)){
+			System.out.println("PUNTI computer: " + sumComputer);
+			System.out.println("PUNTI giocatore: " + sumPlayer);
+			checkFinal();
+		}else if ((sumComputer==5)&&(sumCardsVisiblePlayer==0)){
 			sumC = Game.setCardAndReturnSumComputer(mazzo);
 			System.out.println("PUNTI computer: " + sumComputer);
-			checkFinal();
-		}else if((sumComputer==5.5)&&(sumPlayer==0)){
-			sumC = Game.setCardAndReturnSumComputer(mazzo);
-			System.out.println("PUNTI computer: " + sumComputer);
-			checkFinal();
+			System.out.println("PUNTI giocatore: " + sumPlayer);
 		}else if (sumComputer==5){
 			sumC = Game.setCardAndReturnSumComputer(mazzo);
 			System.out.println("PUNTI computer: " + sumComputer);
-			checkFinal();
+			System.out.println("PUNTI giocatore: " + sumPlayer);
 		}else if(sumComputer<5){
 			do {
 				sumC = Game.setCardAndReturnSumComputer(mazzo);
 				System.out.println("PUNTI computer: " + sumComputer);
-			} while (sumComputer<=5);checkFinal();
+			} while (sumComputer<=5);checkFinal();System.out.println("PUNTI giocatore: " + sumPlayer);
 
 			//ROVARE PRE CREDERE
 		}return sumComputer;
